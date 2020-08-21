@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circles</title>
+	
+	<!--paper -->
+	<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.8/paper-full.min.js"=></script>
+	<!--howler-->
+	<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
+
+	<!--css-->
+	<link rel="stylesheet" type="text/css" href="Assets/css/circles.css">
+		
+	<!--canvas-->
+	<script type="text/paperscript" canvas="myCanvas">
+		/*var context;
+		window.addEventListener('load', init, false);
+		function init() {
+  			try {
+    			// Fix up for prefixing
+    			window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    			context = new AudioContext();
+  			}	
+  			catch(e) {
+    			alert('Web Audio API is not supported in this browser');
+  			}
+		}
+		*/
+
+		/*SOUNDS*/ //used in object
+		/*var sound1 = new Howl({
+			src: ['Assets/js/lib/sounds/bubbles.mp3']
+			//html5: true
+		});
+		var sound2 = new Howl({
+			src: ['Assets/js/lib/sounds/clay.mp3']
+			//html5: true
+		});
+		*/
+		
+
+		/*Exercise*/
+		
+		/*var maxPoint = new Point(view.size.width,view.size.height);
+		var randPoint = new Point.Random 
+		var point = maxPoint * randPoint;
+		//ex (.5,.5) * window size max(600,300) = (300,150)
+		*/
+
+		/*Patatap clone*/
+
+		var keyData = {
+			q: {
+				sound: new Howl({
+	  			urls: ['sounds/bubbles.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			w: {
+				sound: new Howl({
+	  			urls: ['sounds/clay.mp3']
+				}),
+				color: '#2ecc71'
+			},
+			e: {
+				sound: new Howl({
+	  			urls: ['sounds/confetti.mp3']
+				}),
+				color: '#3498db'
+			},
+			r: {
+				sound: new Howl({
+	  			urls: ['sounds/corona.mp3']
+				}),
+				color: '#9b59b6'
+			},
+				t: {
+				sound: new Howl({
+	  			urls: ['sounds/dotted-spiral.mp3']
+				}),
+				color: '#34495e'
+			},
+				y: {
+				sound: new Howl({
+	  			urls: ['sounds/flash-1.mp3']
+				}),
+				color: '#16a085'
+			},
+			u: {
+				sound: new Howl({
+	  			urls: ['sounds/flash-2.mp3']
+				}),
+				color: '#27ae60'
+			},
+			i: {
+				sound: new Howl({
+	  			urls: ['sounds/flash-3.mp3']
+				}),
+				color: '#2980b9'
+			},
+			o: {
+				sound: new Howl({
+				urls: ['sounds/glimmer.mp3']
+				}),
+				color: '#8e44ad'
+			},
+			p: {
+				sound: new Howl({
+	  			urls: ['sounds/moon.mp3']
+				}),
+				color: '#2c3e50'
+			},
+			a: {
+				sound: new Howl({
+	  			urls: ['sounds/pinwheel.mp3']
+				}),
+				color: '#f1c40f'
+			},
+			s: {
+				sound: new Howl({
+		  		urls: ['sounds/piston-1.mp3']
+				}),
+				color: '#e67e22'
+			},
+				d: {
+				sound: new Howl({
+		  		urls: ['sounds/piston-2.mp3']
+				}),
+				color: '#e74c3c'
+			},
+			f: {
+				sound: new Howl({
+		  		urls: ['sounds/prism-1.mp3']
+				}),
+				color: '#95a5a6'
+			},
+			g: {
+				sound: new Howl({
+		  		urls: ['sounds/prism-2.mp3']
+				}),
+				color: '#f39c12'
+			},
+			h: {
+				sound: new Howl({
+		  		urls: ['sounds/prism-3.mp3']
+				}),
+				color: '#d35400'
+			},
+			j: {
+				sound: new Howl({
+		  		urls: ['sounds/splits.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			k: {
+				sound: new Howl({
+		  		urls: ['sounds/squiggle.mp3']
+				}),
+				color: '#2ecc71'
+			},
+			l: {
+				sound: new Howl({
+		  		urls: ['sounds/strike.mp3']
+				}),
+				color: '#3498db'
+			},
+			z: {
+				sound: new Howl({
+		  		urls: ['sounds/suspension.mp3']
+				}),
+				color: '#9b59b6'
+			},
+			x: {
+				sound: new Howl({
+		  		urls: ['sounds/timer.mp3']
+				}),
+				color: '#34495e'
+			},
+			c: {
+				sound: new Howl({
+		  		urls: ['sounds/ufo.mp3']
+				}),
+				color: '#16a085'
+			},
+			v: {
+				sound: new Howl({
+		  		urls: ['sounds/veil.mp3']
+				}),
+				color: '#27ae60'
+			},
+			b: {
+				sound: new Howl({
+		  		urls: ['sounds/wipe.mp3']
+				}),
+				color: '#2980b9'
+			},
+			n: {
+				sound: new Howl({
+					urls: ['sounds/zig-zag.mp3']
+				}),
+				color: '#8e44ad'
+			},
+			m: {
+				sound: new Howl({
+		  		urls: ['sounds/moon.mp3']
+				}),
+				color: '#2c3e50'
+			}
+		}
+			
+		//var x=100;
+		//var y=100;
+		var radius = 500
+		//var color = "orange"
+
+		var circles = [];
+
+		function onKeyDown(event) {
+		// When a key is pressed, set the content of the text item:
+
+			if(keyData[event.key]){
+				//var color = "orange"; //set initial color
+				var radius = 500; //set initial radius
+
+				//create random point within screensize
+				var maxPoint = new Point(view.size.width,view.size.height);
+				var randPoint = new Point.random();
+				var point = maxPoint * randPoint;
+
+				//if key is a play sound1
+			
+				//a
+				//keyData[event.key].color;
+
+				//there is a better way using an object!
+				/*if(event.key === 'a'){
+			
+					sound1.play();
+					color = "purple"
+				}
+				//if key is s play sound2
+				else if(event.key === "s"){
+					sound2.play();
+					color = "#16a085"
+				}
+				else
+				{
+					color = "orange"
+				}*/
+
+				//create a new circle with random point at radius
+				var newCircle = new Path.Circle(point,radius);
+				
+				//color
+				newCircle.fillColor = keyData[event.key].color;
+				
+				//sound
+				keyData[event.key].sound.play();
+
+		    	//ex (.5,.5) * window size max(600,300) = (300,150)
+				//new Path.Circle(point,50).fillColor = color;
+			
+				//push circle into circle array
+				circles.push(newCircle);
+			}
+		}
+
+		//create single animated circle - removed
+		/*var animatedCircle = new Path.Circle(new Point(300,300),100);
+		animatedCircle.fillColor = "red";
+		*/
+
+		function onFrame(event) {
+			// Each frame, change the fill color of the path slightly by
+			// adding 1 to its hue:
+			for (var i = 0; i < circles.length; i++)
+			{
+				console.log(circles[i]);
+				circles[i].fillColor.hue += 1; //animate color
+				circles[i].scale(.90); 	       //animate size
+			}
+			//animatedCircle.fillColor.hue += 1;
+				//animatedCircle.scale(.90); 
+		}
+
+		/*Exercise*/
+
+		/*var x=20;
+		var y=25;
+		var radius = 20
+		var color = "green"
+		
+		for (x = 20; x <= 1000; x=x+60)
+		{
+			for (y = 25; y <=1000; y=y+60)
+			{
+				new Path.Circle(new Point(x,y),radius);
+		    	myCircle.fillColor = color;
+		    }
+		}
+		*/
+
+		//create a circle
+		/* Using the new Path.Circle(center, radius) constructor, we can produces circle shaped paths.*/
+		
+		/*var myCircle = new Path.Circle(new Point(20, 25), 20);
+		myCircle.fillColor = 'green';
+		*/
+	</script>
+
+</head>
+<body>
+	<script type="text/paperscript">
+		var something = "Something"
+	</script>
+</body>
+	<canvas id="myCanvas" resize></canvas>
+</html>

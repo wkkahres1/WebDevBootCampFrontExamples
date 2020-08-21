@@ -1,0 +1,89 @@
+
+body{
+	background-color: #232323;
+	margin: 0;
+	/*set to Montserrat if Avenir doesn't exist*/
+	font-family: 'Montserrat', sans-serif;;
+}
+
+/*grid*/
+.square{
+	width: 30%;
+	background: purple;
+	padding-bottom: 30%;
+	float: left;
+	margin:  1.66%;
+	border-radius: 20%;
+	/*this only targets background*/
+	transition: background 0.6s;
+	/*this helps support browsers*/
+	-webkit-transition: background 0.6s;
+	-moz-transition: background 0.6s;
+}
+
+h1{
+	color: white;
+	text-align: center; /*added this one*/
+	background-color: steelblue;
+	margin: 0;
+	font-weight: normal;
+	text-transform: uppercase;
+	line-height: 1.1;
+	padding: 20px 0;
+
+
+}
+
+.selected{
+	color: white;
+	background: steelblue;
+}
+
+#colorDisplay{
+	font-size: 200%;
+}
+
+#message{
+	display: inline-block;
+	width: 20%;
+
+}
+
+#container{
+	/*0 top and bottom and same left and right*/
+	margin: 20px auto;
+	max-width: 600px;
+}
+
+#stripe{
+	background-color: white;
+	height: 30px;
+	text-align: center;
+	color: black;
+}
+
+button {
+	border: none;
+	background: none;
+	text-transform: uppercase;
+	height: 100%;
+	font-weight: 700;
+	color: steelblue;
+	letter-spacing: 1px;
+	font-size: inherit;
+	/*what we want to transition, how long*/
+	transition: all 1.0s;
+	/*this helps support browsers*/
+	-webkit-transition: all 1.0s;
+	-moz-transition: all 1.0s;
+	/*remove button outline on click*/
+	outline: none;
+}
+
+button:hover {
+	color: white;
+	background: steelblue;
+}
+
+
+
